@@ -30,4 +30,4 @@ commit transactionと書いてある後にBookのインスタンスの `id` が 
 *rails console(rails c)　で検証できます。
 
 
-### 質問についてはgithub場で受け付けます。
+### 質問についてはPull Request 形式で受け付けます。
