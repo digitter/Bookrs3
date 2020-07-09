@@ -28,3 +28,6 @@ commit transactionと書いてある後にBookのインスタンスの `id` が 
 [画像](/sampleImages/instance.png)
 
 *rails console(rails c)　で検証できます。
+
+
+### 質問についてはgithub場で受け付けます。
