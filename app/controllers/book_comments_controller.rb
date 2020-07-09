@@ -11,7 +11,7 @@ class BookCommentsController < ApplicationController
                   #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
 
             # この後の32行目の @book.book_commentsの結果 ...
-                  # 空で投稿したはずのインスタンスも取得できてしまう。DBに保存されてないままだが取得できてしまっているのでコメントの id が nil のまま、view に渡ってしまうのでエラーがでる。
+                  # 空で投稿したはずのインスタンスも取得できてしまう。DBに保存されてないままだが取得できてしまっているのでコメントの id が nil のまま、view に渡ってしまってエラーがでる。
 
     # ● パターン 2: DBに保存されたコメントだけを `bookインスタンス.book_comments`で取得する。
     @book_comment = BookComment.new(book_comment_params)
