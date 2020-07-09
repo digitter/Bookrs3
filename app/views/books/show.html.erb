@@ -49,12 +49,17 @@
           </td>
           <td><%= book_comment.comment %></td>
           <% unless current_user != book_comment.user %>
-            <td><%= link_to 'Destroy', book_book_comments_path(book_comment.id), class: 'btn-sm btn-danger', method: :delete %></td>
+            <td>
+            <%= link_to 'Destroy', book_book_comment_path(book_id: @book, id: book_comment.id), class: 'btn-sm btn-danger', method: :delete %></td>
           <% end %>
         </tr>
       <% end %>
     </table>
     <div class="comment-form">
+      <%#
+      In this case form_for [instance, empty_instance] generates
+      "book/:id/book_comments_path" automatically
+      %>
       <%= form_for [@book, @book_comment] do |f| %>
         <%= f.text_area :comment, size: "90x5" %>
         <%= f.submit '送信' %>

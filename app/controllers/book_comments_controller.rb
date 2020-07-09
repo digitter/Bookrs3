@@ -3,27 +3,35 @@ class BookCommentsController < ApplicationController
 
   def create
     @book = Book.find(params[:book_id])
-    @book_new = Book.new
-    @book_comment = @book.book_comments.new(book_comment_params)
+
+    # @book_comment = @book.book_comments.new(book_comment_params)
+          # => #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
+          # @book.book_comments => #<BookComment id: nil,...> id が nil だと ?!!!!?????? なぜお前が？！
+
+    @book_comment = BookComment.new(book_comment_params)
+    @book_comment.book_id = @book.id
+          # => #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
+          # @book.book_comments => 普通にDBに保存されたことがあるコメント(book comment)だけ取得してる。id をもつコメント(book comment)。
+
     @book_comment.user_id = current_user.id
     if @book_comment.save
       flash[:success] = "Comment was successfully created."
       redirect_to book_path(@book)
     else
-      @book_comments = BookComment.where(book_id: @book.id)
+      # @book_comments = BookComment.where(book_id: @book.id)
+      @book_comments = @book.book_comments
       render '/books/show'
     end
   end
 
   def destroy
-    byebug
-    # book comment をPKで特定してる。routing 設計が微妙
-    @book_comment = BookComment.find(params[:book_id])
+    @book_comment = BookComment.find(params[:id])
     if @book_comment.user != current_user
-      redirect_to request.referer
+      redirect_to redirect_to book_path(params[:book_id])
     end
+
     @book_comment.destroy
-    redirect_to request.referer
+    redirect_to book_path(params[:book_id])
   end
 
   private
