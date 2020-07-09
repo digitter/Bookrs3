@@ -3,7 +3,8 @@ class BookCommentsController < ApplicationController
 
   def create
     @book = Book.find(params[:book_id])
-
+    # @book.id が 16の場合 (Bookのインスタンスのidが16の場合)
+    
     # ● パダーン１: DBに保存されないコメントが `bookインスタンス.book_comments` で取得できてしまう。
       # @book_comment = @book.book_comments.new(book_comment_params)
             # @book_comment (BookCommentのインスタンス) は ...
