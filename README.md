@@ -25,6 +25,8 @@ linkの第二引数の `pathの引数` が二つ必要な状態になる。
 <%= link_to 'Destroy', book_book_comment_path(book_id: @book, id: book_comment.id), class: 'btn-sm btn-danger', method: :delete %>
 ```
 
+参考: https://stackoverflow.com/questions/25269232/how-do-you-pass-multiple-arguments-to-nested-route-paths-in-rails
+
 ### その他の前提知識
 ***
 #### インスタンスの id はDBに保存されるまで nil である !!!
