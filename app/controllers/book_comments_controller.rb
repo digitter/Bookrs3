@@ -4,14 +4,22 @@ class BookCommentsController < ApplicationController
   def create
     @book = Book.find(params[:book_id])
 
-    # @book_comment = @book.book_comments.new(book_comment_params)
-          # => #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
-          # @book.book_comments => #<BookComment id: nil,...> id が nil だと ?!!!!?????? なぜお前が？！
+    # ● パダーン１: DBに保存されないコメントが `bookインスタンス.book_comments` で取得できてしまう。
+      # @book_comment = @book.book_comments.new(book_comment_params)
+            # @book_comment (BookCommentのインスタンス) は ...
+                  #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
 
+            # この後の23行目の @book.book_commentsの結果 ...
+                  # 空で投稿したはずのインスタンスも取得できてしまう。DBに保存されてないままだが取得できてしまっているのでコメントの id が nil のまま、view に渡ってしまうのでエラーがでる。
+
+    # ● パターン 2: DBに保存されたコメントだけを `bookインスタンス.book_comments`で取得する。
     @book_comment = BookComment.new(book_comment_params)
     @book_comment.book_id = @book.id
-          # => #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
-          # @book.book_comments => 普通にDBに保存されたことがあるコメント(book comment)だけ取得してる。id をもつコメント(book comment)。
+          # @book_comment (BookCommentのインスタンス) は ...
+                #<BookComment id: nil, user_id: nil, book_id: 16, comment: "", created_at: nil, updated_at: nil>
+
+          # この後の23行目の @book.book_commentsの結果 ...
+               # 普通にDBに保存されたことがあるコメントだけ取得してる。取得した全てのコメントの id は nil ではない。
 
     @book_comment.user_id = current_user.id
     if @book_comment.save
@@ -19,7 +27,7 @@ class BookCommentsController < ApplicationController
       redirect_to book_path(@book)
     else
       # @book_comments = BookComment.where(book_id: @book.id)
-          # whereに関してはDBからしかデータを取ってこない。
+          # whereに関してはDBからしかデータを取ってこないので問題ない。 30行目より29行目の方が確実に id が nil ではない、コメントを取得できる。
       @book_comments = @book.book_comments
       render '/books/show'
     end
