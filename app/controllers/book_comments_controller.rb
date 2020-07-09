@@ -27,7 +27,7 @@ class BookCommentsController < ApplicationController
       redirect_to book_path(@book)
     else
       # @book_comments = BookComment.where(book_id: @book.id)
-          # whereに関してはDBからしかデータを取ってこないので問題ない。 30行目より29行目の方が確実に id が nil ではない、コメントを取得できる。
+          # whereに関してはDBからしかデータを取ってこないので問題ない。 31行目より29行目の方が確実に id が nil ではない、コメントを取得できる。
       @book_comments = @book.book_comments
       render '/books/show'
     end
