@@ -34,6 +34,7 @@ commit transactionと書いてある後にBookのインスタンスの `id` が 
 
 *rails console(rails c)　で検証できます。
 
+#### あとはアソシエーションを理解していること
 
 ### 質問についてはPull Request 形式で受け付けます。
 ***
