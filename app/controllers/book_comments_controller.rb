@@ -19,6 +19,7 @@ class BookCommentsController < ApplicationController
       redirect_to book_path(@book)
     else
       # @book_comments = BookComment.where(book_id: @book.id)
+          # whereに関してはDBからしかデータを取ってこない。
       @book_comments = @book.book_comments
       render '/books/show'
     end
