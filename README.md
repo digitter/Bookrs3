@@ -23,7 +23,8 @@ linkの引数が二つの状態になる。
 ```
 
 ### その他の前提知識
-- インスタンスの id はDBに保存されるまで nil である !!!
+#### インスタンスの id はDBに保存されるまで nil である !!!
+
 commit transactionと書いてある後にBookのインスタンスの `id` が `nil` ではなく `17` が付与されている。
 [画像](/sampleImages/instance.png)
 
