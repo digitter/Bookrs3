@@ -38,4 +38,4 @@ commit transactionと書いてある後にBookのインスタンスの `id` が 
 ### 質問についてはPull Request 形式で受け付けます。
 ***
 
-以上の前提知識を踏まえて上でBookCommentsController内のcreateアクションを参照してください。失敗するパターン1、成功するパターン2の説明を書いておきました。
+以上の前提知識を踏まえて上でapp/controllers/book_comments_controller.rb内のcreateアクションを参照してください。失敗するパターン1、成功するパターン2の説明を書いておきました。
