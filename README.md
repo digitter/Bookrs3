@@ -36,7 +36,7 @@ transaction処理成功後にBookのインスタンスの `id` が `nil` では�
 
 *rails console(rails c)　で検証できます。
 
-```
+```ruby
 User.first
   => #<User id: 1, email: "test@test", name: "test", introduction: nil, profile_image_id: nil, created_at: "2019-12-18 20:49:42", updated_at: "2019-12-18 20:51:59">
 
@@ -52,7 +52,7 @@ book_instance.save
   => true
 
 book_instance
-  => #<Book id: 17, title: "Ruby on Rails", body: "webアプリ開発", created_at: "2020-07-11 04:50:54", updated_at: "2020-07-11 04:50:54", user_id: 1>
+  => #<Book id: 17, title: "Ruby on Rails", body: "webアプリ開発", created_at: "2020-07-11 04:50:54", updated_at: "2020-07-11 04:50:54", user_id: 1 >
 ```
 
 #### あとはアソシエーションを理解していること
