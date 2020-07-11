@@ -29,12 +29,31 @@ linkの第二引数の `pathの引数` が二つ必要な状態になる。
 
 ### その他の前提知識
 ***
-#### インスタンスの id はDBに保存されるまで nil である !!!
+#### インスタンスの id はDBに保存されるまで nil である !!! (created_at, updated_atについてもnilです)
 
-commit transactionと書いてある後にBookのインスタンスの `id` が `nil` ではなく `17` が付与されている。
+transaction処理成功後にBookのインスタンスの `id` が `nil` ではなく `17` が付与されている。（created_atもupdated_atも)
 [画像](/sampleImages/instance.png)
 
 *rails console(rails c)　で検証できます。
+
+```
+User.first
+  => #<User id: 1, email: "test@test", name: "test", introduction: nil, profile_image_id: nil, created_at: "2019-12-18 20:49:42", updated_at: "2019-12-18 20:51:59">
+
+book_instance = Book.new(title: 'Ruby on Rails', body: 'webアプリ開発', user_id: i)
+  => #<Book id: nil, title: "Ruby on Rails", body: "webアプリ開発", created_at: nil, updated_at: nil, user_id: 1 >
+
+book_instance.save
+  => 
+   (7.4ms)  begin transaction
+  User Load (2.7ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+  SQL (2.6ms)  INSERT INTO "books" ("title", "body", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?)  [["title", "Ruby on Rails"], ["body", "webアプリ開発"], ["created_at", 2020-07-11 04:50:54 UTC], ["updated_at", 2020-07-11 04:50:54 UTC], ["user_id", 1]]
+   (0.8ms)  commit transaction
+  => true
+
+book_instance
+  => #<Book id: 17, title: "Ruby on Rails", body: "webアプリ開発", created_at: "2020-07-11 04:50:54", updated_at: "2020-07-11 04:50:54", user_id: 1>
+```
 
 #### あとはアソシエーションを理解していること
 
